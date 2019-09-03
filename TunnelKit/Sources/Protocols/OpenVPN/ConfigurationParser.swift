@@ -3,7 +3,7 @@
 //  TunnelKit
 //
 //  Created by Davide De Rosa on 9/5/18.
-//  Copyright (c) 2019 Davide De Rosa. All rights reserved.
+//  Copyright (c) 2019 Davide De Rosa, Sam Foxman. All rights reserved.
 //
 //  https://github.com/passepartoutvpn
 //
@@ -53,6 +53,8 @@ extension OpenVPN {
             static let ping = NSRegularExpression("^ping +\\d+")
             
             static let renegSec = NSRegularExpression("^reneg-sec +\\d+")
+            
+            static let xorMask = NSRegularExpression("^scramble +xormask +.$")
             
             static let blockBegin = NSRegularExpression("^<[\\w\\-]+>")
             
@@ -204,6 +206,7 @@ extension OpenVPN {
             var optTLSStrategy: TLSWrap.Strategy?
             var optKeepAliveSeconds: TimeInterval?
             var optRenegotiateAfterSeconds: TimeInterval?
+            var optXorMask: UInt8?
             //
             var optHostname: String?
             var optDefaultProto: SocketType?
@@ -404,6 +407,13 @@ extension OpenVPN {
                         return
                     }
                     optRenegotiateAfterSeconds = TimeInterval(arg)
+                }
+                Regex.xorMask.enumerateArguments(in: line) {
+                    isHandled = true
+                    if $0.count != 2 {
+                        return
+                    }
+                    optXorMask = Character($0[1]).asciiValue
                 }
                 
                 // MARK: Client
@@ -629,6 +639,7 @@ extension OpenVPN {
             
             sessionBuilder.checksEKU = optChecksEKU
             sessionBuilder.randomizeEndpoint = optRandomizeEndpoint
+            sessionBuilder.xorMask = optXorMask ?? 0
             
             // MARK: Server
             
