@@ -76,9 +76,9 @@ YDQ8z9v+DMO6iwyIDRiU
 """)
 
 extension ViewController {
-    private static let appGroup = "group.com.algoritmico.ios.demo.BasicTunnel"
+    private static let appGroup = "group.com.tejasmehta.tunnelTest"
     
-    private static let tunnelIdentifier = "com.algoritmico.ios.demo.BasicTunnel.BasicTunnelExtension"
+    private static let tunnelIdentifier = "com.tejasmehta.tunnelTest.Extension"
     
     private func makeProtocol() -> NETunnelProviderProtocol {
         let server = textServer.text!
@@ -140,7 +140,7 @@ class ViewController: UIViewController, URLSessionDataDelegate {
         
         textServer.text = "germany"
         textDomain.text = "privateinternetaccess.com"
-        textPort.text = "1198"
+        textPort.text = "443"
         switchTCP.isOn = false
         textUsername.text = "myusername"
         textPassword.text = "mypassword"

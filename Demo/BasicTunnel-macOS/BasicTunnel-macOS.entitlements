@@ -10,7 +10,7 @@
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>$(TeamIdentifierPrefix)group.com.algoritmico.macos.demo.BasicTunnel</string>
+		<string>$(TeamIdentifierPrefix)group.com.tejasmehta.macos.tunnelTest</string>
 	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
